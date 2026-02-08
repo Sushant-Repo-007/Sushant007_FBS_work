@@ -1,0 +1,171 @@
+1. Write a SQL statement to insert a record as follows:
+Employees :
+CREATE TABLE Employees1(
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(20),
+    hire_date DATE NOT NULL,
+    job_id VARCHAR(20) NOT NULL,
+    salary DECIMAL(10,2),
+    commission_pct DECIMAL(5,2),
+    manager_id INT,
+    department_id INT
+);
+
+
+INSERT INTO Employees1
+(employee_id, first_name, last_name, email, phone_number, hire_date,
+ job_id, salary, commission_pct, manager_id, department_id)
+VALUES
+(100, 'Steven', 'King', 'SKING', '515.123.4567',
+ STR_TO_DATE('1987-06-17','%Y-%m-%d'), 'AD_PRES', 24000, NULL, NULL, 10);
+
+INSERT INTO Employees1 VALUES
+(101, 'Neena', 'Kochhar', 'NKOCHHAR', '515.123.4568',
+ STR_TO_DATE('1987-06-18','%Y-%m-%d'), 'AD_VP', 17000, NULL, 100, 10);
+
+INSERT INTO Employees1 VALUES
+(102, 'Lex', 'De Haan', 'LDEHAAN', '515.123.4569',
+ STR_TO_DATE('1987-06-19','%Y-%m-%d'), 'AD_VP', 17000, NULL, 100, 10);
+
+INSERT INTO Employees1 VALUES
+(103, 'Alexander', 'Hunold', 'AHUNOLD', '590.423.4567',
+ STR_TO_DATE('1987-06-20','%Y-%m-%d'), 'IT_PROG', 9000, NULL, 102, 60);
+
+INSERT INTO Employees1 VALUES
+(104, 'Bruce', 'Ernst', 'BERNST', '590.423.4568',
+ STR_TO_DATE('1987-06-21','%Y-%m-%d'), 'IT_PROG', 6000, NULL, 103, 60);
+
+INSERT INTO Employees1 VALUES
+(105, 'David', 'Austin', 'DAUSTIN', '590.423.4569',
+ STR_TO_DATE('1987-06-22','%Y-%m-%d'), 'IT_PROG', 4800, NULL, 103, 60);
+
+INSERT INTO Employees1 VALUES
+(106, 'Valli', 'Pataballa', 'VPATABAL', '590.423.4560',
+ STR_TO_DATE('1987-06-23','%Y-%m-%d'), 'IT_PROG', 4800, NULL, 103, 60);
+
+INSERT INTO Employees1 VALUES
+(107, 'Diana', 'Lorentz', 'DLORENTZ', '590.423.5567',
+ STR_TO_DATE('1987-06-24','%Y-%m-%d'), 'IT_PROG', 4200, NULL, 103, 30);
+
+INSERT INTO Employees1 VALUES
+(108, 'Nancy', 'Greenberg', 'NGREENBE', '515.124.4569',
+ STR_TO_DATE('1987-06-25','%Y-%m-%d'), 'SA_MAN', 12000, NULL, 101, 80);
+
+INSERT INTO Employees1 VALUES
+(109, 'Daniel', 'Faviet', 'DFAVIET', '515.124.4169',
+ STR_TO_DATE('1987-06-26','%Y-%m-%d'), 'SA_MAN', 9000, NULL, 108, 80);
+
+Department1 Table above:---
+
+mysql> Create table Department1(
+    -> Depatment_ID Int,
+    -> Department_Name varchar(30),
+    -> Manager_ID int,
+    -> Location_ID int);
+Query OK, 0 rows affected (0.02 sec)
+
+2. Write a SQL statement to insert 3 rows by a single insert statement.
+
+mysql> INSERT INTO Employees1 (employee_id,first_name, last_name,email,phone_number,hire_date,job_id,salary,commission_pct,manager_id,department_id) values
+    -> (110, 'Steven Robbins', 'King', 'SKING', '515.123.4567',STR_TO_DATE('1985-06-17','%Y-%m-%d'), 'AD_PRES', 24000, NULL, NULL, 10),
+    -> (111, 'Black Panther', 'King', 'SKING', '515.123.4567',STR_TO_DATE('1988-06-17','%Y-%m-%d'), 'AD_PRES', 24000, NULL, NULL, 10),
+    -> (112, 'Tiger', 'King', 'SKING', '515.123.4567',STR_TO_DATE('1988-06-17','%Y-%m-%d'), 'AD_PRES', 24000, NULL, NULL, 10);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+3. Write a SQL statement to insert one row in jobs table to ensure that no duplicate
+value will be entered in the job_id column.?
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('AD_PRES', 'President', 20000, 40000);
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('AD_VP', 'Administration Vice President', 15000, 30000);
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('AD_ASST', 'Administration Assistant', 3000, 6000);
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('FI_MGR', 'Finance Manager', 8200, 16000);
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('FI_ACCOUNT', 'Accountant', 4200, 9000);
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('AC_MGR', 'Accounting Manager', 8200, 16000);
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('AC_ACCOUNT', 'Public Accountant', 4200, 9000);
+
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('SA_MAN', 'Sales Manager', 10000, 20000);
+
+New insert Query for the table no duplicate values are there here 
+---------------------------------------------------------------------------- 
+INSERT INTO jobs1 (job_id, job_title, min_salary, max_salary)
+VALUES ('SP_MAN', 'Sales Project', 20000, 30000);
+
+4. Write SQL statement to increment salary of each emp by 10%.?
+
+mysql> UPDATE Employees1
+    -> SET salary = salary * 1.10;
+Query OK, 13 rows affected (0.00 sec)
+Rows matched: 13  Changed: 13  Warnings: 0
+
+5. Write a SQL statement to change the email column of employees table with 'not
+available' for those employees whose department_id is 80 and gets a
+commission is less than .20%
+
+mysql> UPDATE Employees1
+    -> SET email = 'not available'
+    -> WHERE department_id = 80
+    ->   AND (commission_pct < 0.20 OR commission_pct IS NULL);
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table Employees1;
++-------------+----------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| employee_id | first_name     | last_name | email         | phone_number | hire_date  | job_id  | salary   | commission_pct | manager_id | department_id |
++-------------+----------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven         | King      | SKING         | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           NULL |       NULL |            10 |
+|         101 | Neena          | Kochhar   | NKOCHHAR      | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           NULL |        100 |            10 |
+|         102 | Lex            | De Haan   | LDEHAAN       | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           NULL |        100 |            10 |
+|         103 | Alexander      | Hunold    | AHUNOLD       | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           NULL |        102 |            60 |
+|         104 | Bruce          | Ernst     | BERNST        | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           NULL |        103 |            60 |
+|         105 | David          | Austin    | DAUSTIN       | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           NULL |        103 |            60 |
+|         106 | Valli          | Pataballa | VPATABAL      | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           NULL |        103 |            60 |
+|         107 | Diana          | Lorentz   | DLORENTZ      | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           NULL |        103 |            30 |
+|         108 | Nancy          | Greenberg | NGREENBE      | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |         100.00 |        101 |            80 |
+|         109 | Daniel         | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           NULL |        108 |            80 |
+|         110 | Steven Robbins | King      | SKING         | 515.123.4567 | 1985-06-17 | AD_PRES | 26400.00 |           NULL |       NULL |            10 |
+|         111 | Black Panther  | King      | SKING         | 515.123.4567 | 1988-06-17 | AD_PRES | 26400.00 |           NULL |       NULL |            10 |
+|         112 | Tiger          | King      | SKING         | 515.123.4567 | 1988-06-17 | AD_PRES | 26400.00 |           NULL |       NULL |            10 |
++-------------+----------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+13 rows in set (0.00 sec)
+
+
+
+6. Write a SQL statement to change the email column of employees table with 'not
+available' for those employees who belongs to the 'Purchasing' department.?
+
+
+
+UPDATE Employees1
+SET email = 'not available'
+WHERE department_id IN (
+    SELECT department_id
+    FROM Departments
+    WHERE department_name = 'Purchasing'
+);
+
+
+
+
+
+
+
+
+
