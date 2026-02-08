@@ -1,0 +1,399 @@
+1. Login to MySQL and view all databases already present. You should get
+following result :
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignment         |
+| cdetails           |
+| class              |
+| country            |
+| customer           |
+| data               |
+| ecommerce          |
+| employee           |
+| employees          |
+| family             |
+| hr                 |
+| hrd                |
+| information_schema |
+| library            |
+| mysql              |
+| new_employee       |
+| newemployee        |
+| newproject         |
+| newproject2        |
+| performance_schema |
+| practice           |
+| project            |
+| pydb               |
+| restaurant         |
+| sakila             |
+| samp               |
+| sample             |
+| samples            |
+| superusers         |
+| sushant            |
+| sys                |
+| world              |
++--------------------+
+32 rows in set (0.00 sec)
+
+
+
+
+
+2)-Write an SQL statement to create a simple table countries including columns
+	country_id,country_name and region_id. After this display the structure of
+	table as below :
+
+
+
+
+mysql> create database country;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use country;
+Database changed
+mysql> create table country(country_id int, country_name varchar(20),region_id int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc country;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | YES  |     | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3) Write an SQL statement to create a table named jobs including columns
+job_id, job_title, min_salary, max_salary and check whether the
+max_salary amount exceeding the upper limit 25000. Also set job_id as
+primary key and entering null values for job_title is not allowed.
+
+ -- sql statement --
+create table job_description(job_id int primary key,job_title varchar(50) Not Null,min_salary decimal(7,2),max_salary decimal(7,2) check(max_salary>25000));
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4)Write a SQL statement to create a table named job_histry including columns
+employee_id, start_date, end_date, job_id and department_id?
+
+---- create table job_history(employee_id int ,start_date date,end_date date,job_id int ,department_id int);
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5) Write an SQL statement to alter a table named countries to make sure that no
+duplicate data against column country_id will be allowed at the time of
+insertion.?
+
+mysql> alter table country add primary key(country_id);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc country;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | NO   | PRI | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+mysql> insert  into country values(1,"india",192989);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert  into country values(2,"pakistan",182989);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table country;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+|          1 | india        |    192989 |
+|          2 | pakistan     |    182989 |
++------------+--------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> insert  into country values(2, "japan",182989);
+ERROR 1062 (23000): Duplicate entry '2' for key 'country.PRIMARY'
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. Write an SQL statement to create a table named jobs including columns job_id,
+job_title, min_salary and max_salary, and make sure that, the default value
+for job_title is blank and min_salary is 8000 and max_salary is NULL will be
+entered automatically at the time of insertion if no value assigned for the
+specified columns.
+
+Answer ----
+
+--mysql> create table jobs(
+    -> job_id int,job_title varchar(50) default '',min_salary int default 8000,max_salary int Null);
+Query OK, 0 rows affected (0.03 sec)
+
+ insert into jobs(job_id) values(1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table jobs;
++--------+-----------+------------+------------+
+| job_id | job_title | min_salary | max_salary |
++--------+-----------+------------+------------+
+|      1 |           |       8000 |       NULL |
++--------+-----------+------------+------------+
+1 row in set (0.00 sec)
+
+Create a Department table with following structure
+
+---mysql> create table department(
+    -> department_ID decimal(4,0) default 0,
+    -> department_Name varchar(30) default Null,
+    -> Manger_ID decimal(6,0) Not Null default 0,
+    -> location_ID decimal(4,0) default Null);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc department;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| department_ID   | decimal(4,0) | YES  |     | 0       |       |
+| department_Name | varchar(30)  | YES  |     | NULL    |       |
+| Manger_ID       | decimal(6,0) | NO   |     | 0       |       |
+| location_ID     | decimal(4,0) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table department add primary key(Manger_ID,department_ID);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| department_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| department_Name | varchar(30)  | YES  |     | NULL    |       |
+| Manger_ID       | decimal(6,0) | NO   | PRI | 0       |       |
+| location_ID     | decimal(4,0) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table department modify column (department_Name varchar(30) Not Null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(department_Name varchar(30) Not Null)' at line 1
+mysql> alter table department modify column department_Name varchar(30) Not Null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| department_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| department_Name | varchar(30)  | NO   |     | NULL    |       |
+| Manger_ID       | decimal(6,0) | NO   | PRI | 0       |       |
+| location_ID     | decimal(4,0) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+Q8--Write an SQL statement to create a table employees including columns
+employee_id, first_name, last_name, email, phone_number hire_date, job_id,
+salary, commission, manager_id and department_id and make sure that, the
+employee_id column does not contain any duplicate value at the time of
+insertion and the foreign key columns combined by department_id and
+manager_id columns contain only those unique combination values, which
+combinations are exists in the departments table.
+
+Answer ---
+
+mysql> create table employees(employee_id int,first_name varchar(30),
+    -> last_name varchar(30),
+    -> email varchar(30) unique,
+    -> phone_number int,
+    -> hire_date date,
+    -> job_id int,
+    -> salary decimal(7,2),
+    -> commission int,
+    -> Manger_ID decimal(6,0),
+    -> department_ID decimal(4,0));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc department;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| department_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| department_Name | varchar(30)  | NO   |     | NULL    |       |
+| Manger_ID       | decimal(6,0) | NO   | PRI | 0       |       |
+| location_ID     | decimal(4,0) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc employees;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| employee_id   | int          | YES  |     | NULL    |       |
+| first_name    | varchar(30)  | YES  |     | NULL    |       |
+| last_name     | varchar(30)  | YES  |     | NULL    |       |
+| email         | varchar(30)  | YES  | UNI | NULL    |       |
+| phone_number  | int          | YES  |     | NULL    |       |
+| hire_date     | date         | YES  |     | NULL    |       |
+| job_id        | int          | YES  |     | NULL    |       |
+| salary        | decimal(7,2) | YES  |     | NULL    |       |
+| commission    | int          | YES  |     | NULL    |       |
+| Manger_ID     | decimal(6,0) | YES  |     | NULL    |       |
+| department_ID | decimal(4,0) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> alter table employees add primary key(Manger_ID,department_ID);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employees add foreign key(Manger_ID,department_ID) references department(Manger_ID,department_ID);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| employee_id   | int          | YES  |     | NULL    |       |
+| first_name    | varchar(30)  | YES  |     | NULL    |       |
+| last_name     | varchar(30)  | YES  |     | NULL    |       |
+| email         | varchar(30)  | YES  | UNI | NULL    |       |
+| phone_number  | int          | YES  |     | NULL    |       |
+| hire_date     | date         | YES  |     | NULL    |       |
+| job_id        | int          | YES  |     | NULL    |       |
+| salary        | decimal(7,2) | YES  |     | NULL    |       |
+| commission    | int          | YES  |     | NULL    |       |
+| Manger_ID     | decimal(6,0) | NO   | PRI | NULL    |       |
+| department_ID | decimal(4,0) | NO   | PRI | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+
+mysql> desc department;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| department_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| department_Name | varchar(30)  | NO   |     | NULL    |       |
+| Manger_ID       | decimal(6,0) | NO   | PRI | 0       |       |
+| location_ID     | decimal(4,0) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into department (department_ID,department_Name,Manger_ID,Location_ID) values(1,"Physics",101,192.090);
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> insert into department (department_ID,department_Name,Manger_ID,Location_ID) values(2,"HR",102,192.091),
+    -> (3,"Housekeeping",103,192.092);
+Query OK, 2 rows affected, 2 warnings (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 2
+
+mysql> table department;
++---------------+-----------------+-----------+-------------+
+| department_ID | department_Name | Manger_ID | location_ID |
++---------------+-----------------+-----------+-------------+
+|             1 | Physics         |       101 |         192 |
+|             2 | HR              |       102 |         192 |
+|             3 | Housekeeping    |       103 |         192 |
++---------------+-----------------+-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> table employees;
+Empty set (0.00 sec)
+
+mysql> desc employees;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| employee_id   | int          | YES  |     | NULL    |       |
+| first_name    | varchar(30)  | YES  |     | NULL    |       |
+| last_name     | varchar(30)  | YES  |     | NULL    |       |
+| email         | varchar(30)  | YES  | UNI | NULL    |       |
+| phone_number  | int          | YES  |     | NULL    |       |
+| hire_date     | date         | YES  |     | NULL    |       |
+| job_id        | int          | YES  |     | NULL    |       |
+| salary        | decimal(7,2) | YES  |     | NULL    |       |
+| commission    | int          | YES  |     | NULL    |       |
+| Manger_ID     | decimal(6,0) | NO   | PRI | NULL    |       |
+| department_ID | decimal(4,0) | NO   | PRI | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+insert into employees (employee_id,first_name,last_name,email,phone_number,hire_date,job_id,salary,commission,Manger_ID,department_ID)
+    -> values(2,"sushant","chorghe","sushantchorghe@flipkart.com",98,'2010-10-12',1,50000.45,1000,101,1);
+Query OK, 1 row affected (0.00 sec)
+
+
+mysql> table employees;
++-------------+------------+-----------+-----------------------------+--------------+------------+--------+----------+------------+-----------+---------------+
+| employee_id | first_name | last_name | email                       | phone_number | hire_date  | job_id | salary   | commission | Manger_ID | department_ID |
++-------------+------------+-----------+-----------------------------+--------------+------------+--------+----------+------------+-----------+---------------+
+|           2 | sushant    | chorghe   | sushantchorghe@flipkart.com |           98 | 2010-10-12 |      1 | 50000.45 |       1000 |       101 |             1 |
++-------------+------------+-----------+-----------------------------+--------------+------------+--------+----------+------------+-----------+---------------+
+1 row in set (0.00 sec)
+
+mysql> table employees;
++-------------+------------+-----------+-----------------------------+--------------+------------+--------+----------+------------+-----------+---------------+
+| employee_id | first_name | last_name | email                       | phone_number | hire_date  | job_id | salary   | commission | Manger_ID | department_ID |
++-------------+------------+-----------+-----------------------------+--------------+------------+--------+----------+------------+-----------+---------------+
+|           2 | sushant    | chorghe   | sushantchorghe@flipkart.com |           98 | 2010-10-12 |      1 | 50000.45 |       1000 |       101 |             1 |
+|           2 | sayali     | chorghe   | sayalichorghe@flipkart.com  |           98 | 2010-10-12 |      1 | 50000.45 |       1000 |       102 |             2 |
++-------------+------------+-----------+-----------------------------+--------------+------------+--------+----------+------------+-----------+---------------+
+2 rows in set (0.00 sec)
+
+
+mysql> insert into employees (employee_id,first_name,last_name,email,phone_number,hire_date,job_id,salary,commission,Manger_ID,department_ID)
+    -> values(2,"sushant","chorghe","sushantchorghe@flipkart.com",98,'2010-10-12',1,50000.45,1000,101,1);
+ERROR 1062 (23000): Duplicate entry '101-1' for key 'employees.PRIMARY'
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
