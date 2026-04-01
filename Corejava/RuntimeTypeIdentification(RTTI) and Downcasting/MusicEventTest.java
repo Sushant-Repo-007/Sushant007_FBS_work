@@ -23,9 +23,9 @@ class EventManager // Event handler here // downcasting class here
 
 	// specified using the getter such that we can use display and to string too
 
-} // class Event Manager Ends here
+} // class Event Manager Ends here 
 
-class Artist // base class inheritance example here ends here
+class Artist 
 { // class members
 	String name;
 	int age;
@@ -209,10 +209,8 @@ public class MusicEventTest {                                                   
 		
 		System.out.println("The Total Count of artist is -- :"+Artist.getCount());
 		
-		// more arguments to be passed here 
 		
 		
-		   // reference created for Event Mamanger to check here 
 		
 		 
 		 for (Artist a:artists) // arry of artist passed here
